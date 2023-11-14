@@ -1,5 +1,6 @@
-import Link from 'next/link';
-import React from 'react';
+'use client';
+
+import NavBar from '../../components/NavBar';
 
 export default function SidebarLayout({
   children,
@@ -8,9 +9,19 @@ export default function SidebarLayout({
 }) {
   return (
     <>
-      <div>This is layout</div>
-      <Link href="/api/auth/signout">Sign Out</Link>
-      {children}
+      <div>
+        <NavBar>{children}</NavBar>
+        {/* <div className=" h-[calc(100vh-60px)]">
+          <div>This is layout</div>
+          <Link component={NextLink} href="/api/auth/signout">
+            Sign Out
+          </Link>
+          <Button>
+            <NextLink href="/api/auth/signout">Sign Out</NextLink>
+          </Button>
+          {children}
+        </div> */}
+      </div>
     </>
   );
 }

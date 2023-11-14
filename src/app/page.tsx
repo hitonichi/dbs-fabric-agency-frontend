@@ -1,7 +1,6 @@
 import { getServerSession } from 'next-auth';
 import SidebarLayout from './(withSidebar)/layout';
-import { authOptions } from './api/auth/[...nextauth]/route';
-import Switch from '@mui/material/Switch';
+import { authOptions } from './api/auth/[...nextauth]/authOptions';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -11,9 +10,13 @@ export default async function Home() {
     <>
       {session ? (
         <main>
-          <div>This is homepage</div>
-          <Switch />
-          <SidebarLayout>{}</SidebarLayout>
+          <SidebarLayout>
+            {
+              <>
+                <div>This is homepage</div>
+              </>
+            }
+          </SidebarLayout>
         </main>
       ) : (
         <div>[INFO] not authenticated</div>
