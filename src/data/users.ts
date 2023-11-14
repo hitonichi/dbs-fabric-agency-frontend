@@ -1,0 +1,42 @@
+export const MOCK_USER = [
+  {
+    id: '1',
+    username: 'office',
+    password: '123',
+    name: 'JK Jane',
+    email: 'janejk@example.com',
+    roles: ['officeStaff'],
+  },
+  {
+    id: '2',
+    username: 'operational',
+    password: '123',
+    name: 'J Smith',
+    email: 'jsmith@example.com',
+    roles: ['operationStaff'],
+  },
+  {
+    id: '3',
+    username: 'partner',
+    password: '123',
+    name: 'LC Way',
+    email: 'lcway@example.com',
+    roles: ['partnerStaff'],
+  },
+  {
+    id: '4',
+    username: 'manager',
+    password: '123',
+    name: 'BB Anthony',
+    email: 'anthony.bb@example.com',
+    roles: ['manager'],
+  },
+  {
+    id: '5',
+    username: 'customer',
+    password: '123',
+    name: 'JU Kim',
+    email: 'kjongun.bb@example.com',
+    roles: ['customer'],
+  },
+];

@@ -1,5 +1,6 @@
 import nextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { MOCK_USER } from '../../../../data/users';
 
 export type Roles = string[];
 
@@ -14,26 +15,10 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
         console.log('[INFO] logging in as ', credentials, req);
-        const users = [
-          {
-            id: '1',
-            username: 'operational',
-            password: '123',
-            name: 'J Smith',
-            email: 'jsmith@example.com',
-            roles: ['operationStaff'],
-          },
-          {
-            id: '2',
-            username: 'partner',
-            password: '123',
-            name: 'LC Way',
-            email: 'lcway@example.com',
-            roles: ['partnerStaff'],
-          },
-        ];
 
-        const user = users.find((u) => u.username === credentials?.username);
+        const user = MOCK_USER.find(
+          (u) => u.username === credentials?.username
+        );
 
         if (user && user.password === credentials.password) {
           console.log('correct user', user);
@@ -48,7 +33,6 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  // pages: {
   callbacks: {
     async jwt({ token, user }) {
       if (user) token.roles = user.roles;
@@ -58,28 +42,7 @@ export const authOptions: NextAuthOptions = {
       if (session?.user) session.user.roles = token.roles as Roles;
       return session;
     },
-    // async jwt({ token, user, trigger }) {
-    //   const roles =
-    //     (token && token?.role) || (user && (user as AppUser)?.roles);
-    //   return { ...token, roles };
-    // },
-    // session: async ({ session, user, token }) => {
-    //   if (token.roles) (session.user as AppUser).roles = token.roles as Roles;
-    //   return session;
-    // },
-    // async session({ session, user, token }) {
-    //   session?.user?.id = token.id;
-    //   return Promise.resolve(session);
-    //   // return {
-    //   //   user: {
-    //   //     id: token.id,
-    //   //     // role: user.role,
-    //   //     ...session.user,
-    //   //   },
-    //   // };
-    // },
   },
-  // }
 };
 
 const handler = nextAuth(authOptions);
