@@ -3,7 +3,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import SidebarItem from './SidebarItem';
-import { DRAWER_WIDTH } from './constants';
+import { DRAWER_WIDTH, roleAsString } from './constants';
 import { MouseEventHandler } from 'react';
 import { Session } from 'next-auth';
 import Link from 'next/link';
@@ -14,38 +14,54 @@ interface SidebarProps {
   handleToggleDrawer: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const ROUTES = [
-  {
-    path: '/dashboard',
-    Icon: () => <LogoutIcon />,
-    label: 'Dashboard',
-  },
-  {
-    path: '/profile',
-    Icon: () => <LogoutIcon />,
-    label: 'Profile',
-  },
-  {
-    Icon: () => <LogoutIcon />,
-    label: 'Transactions',
-    items: [
-      {
-        path: '/transactions/create',
-        label: 'Create',
-      },
-      {
-        path: '/transactions/view',
-        label: 'View',
-      },
-    ],
-  },
-];
+export const ROUTES = {
+  operationStaff: [
+    {
+      path: '/dashboard',
+      Icon: () => <LogoutIcon />,
+      label: 'Dashboard',
+    },
+    {
+      path: '/profile',
+      Icon: () => <LogoutIcon />,
+      label: 'Profile',
+    },
+    {
+      Icon: () => <LogoutIcon />,
+      label: 'Transactions',
+      items: [
+        {
+          path: '/transactions/create',
+          label: 'Create',
+        },
+        {
+          path: '/transactions/view',
+          label: 'View',
+        },
+      ],
+    },
+  ],
+  partnerStaff: [
+    {
+      path: '/dashboard',
+      Icon: () => <LogoutIcon />,
+      label: 'Dashboard',
+    },
+    {
+      path: '/suppliers',
+      Icon: () => <LogoutIcon />,
+      label: 'Suppliers',
+    },
+  ],
+};
 
 export default function Sidebar({
   open,
   session,
   handleToggleDrawer,
 }: SidebarProps) {
+  const availableRoutes = ROUTES[session?.user?.roles];
+
   return (
     <Drawer
       sx={{
@@ -90,7 +106,9 @@ export default function Sidebar({
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
               {session?.user?.name}
             </Typography>
-            <Typography variant="body2">role</Typography>
+            <Typography variant="body2">
+              {roleAsString[session?.user?.roles[0]]}
+            </Typography>
           </div>
           <Link href="/api/auth/signout">
             <LogoutIcon className="text-white" />
@@ -101,17 +119,9 @@ export default function Sidebar({
             bgcolor: 'primary.dark',
           }}
         />
-        {ROUTES.map((route, id) => (
+        {availableRoutes?.map((route, id) => (
           <SidebarItem {...route} key={id} />
         ))}
-        <SidebarItem
-          Icon={() => <LogoutIcon />}
-          label="Hi there"
-          items={[
-            { label: 'hihi', path: 'hihi' },
-            { label: 'haha', path: 'hihi' },
-          ]}
-        />
       </div>
     </Drawer>
   );
