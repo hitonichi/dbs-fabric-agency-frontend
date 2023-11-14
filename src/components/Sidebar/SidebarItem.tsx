@@ -19,15 +19,9 @@ const SidebarItem: FC<SidebarItemProps> = ({ Icon, label, path, items }) => {
   const rootItem = (
     <Button fullWidth sx={{ padding: '0px' }} onClick={() => setOpen(!open)}>
       <div className="flex justify-between p-4 w-full text-white">
-        <div className="flex gap-4">
+        <div className="flex gap-4 w-full">
           {Icon ? <Icon /> : <div className="ml-4"></div>}
-          {path ? (
-            <Link href={path}>
-              <Typography variant="body1">{label}</Typography>
-            </Link>
-          ) : (
-            <Typography variant="body1">{label}</Typography>
-          )}
+          <Typography variant="body1">{label}</Typography>
         </div>
         {isExpandable && open && <ExpandMoreIcon />}
         {isExpandable && !open && <ExpandLessIcon />}
@@ -50,7 +44,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ Icon, label, path, items }) => {
 
   return (
     <>
-      {rootItem}
+      {path ? <Link href={path}>{rootItem}</Link> : rootItem}
       {childrenItems}
     </>
   );

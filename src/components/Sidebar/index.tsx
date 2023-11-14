@@ -5,9 +5,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import FactoryIcon from '@mui/icons-material/Factory';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
+// import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import YardIcon from '@mui/icons-material/Yard';
 
 import SidebarItem from './SidebarItem';
 import { DRAWER_WIDTH, roleAsString } from './constants';
@@ -38,8 +39,23 @@ export const ROUTES = {
           label: 'Create',
         },
         {
-          path: '/transactions/view',
+          path: '/transactions',
           label: 'View',
+        },
+      ],
+    },
+    // TODO: Separate between customer order & staff one
+    {
+      Icon: () => <ListAltIcon />,
+      label: 'Orders',
+      items: [
+        {
+          path: '/orders',
+          label: 'View',
+        },
+        {
+          path: '/orders/create',
+          label: 'Create',
         },
       ],
     },
@@ -55,6 +71,20 @@ export const ROUTES = {
       Icon: () => <FactoryIcon />,
       label: 'Suppliers',
     },
+    {
+      Icon: () => <YardIcon />,
+      label: 'Fabric',
+      items: [
+        {
+          path: '/fabric',
+          label: 'View',
+        },
+        {
+          path: '/fabric/import',
+          label: 'Import',
+        },
+      ],
+    },
   ],
   officeStaff: [
     {
@@ -64,18 +94,17 @@ export const ROUTES = {
     },
   ],
   customer: [
+    // {
+    //   path: '/profile',
+    //   Icon: () => <AccountBoxIcon />,
+    //   label: 'Profile',
+    // },
     {
-      path: '/profile',
-      Icon: () => <AccountBoxIcon />,
-      label: 'Profile',
-    },
-    {
-      path: '/orders',
       Icon: () => <ListAltIcon />,
       label: 'Orders',
       items: [
         {
-          path: '/orders/view',
+          path: '/orders',
           label: 'View',
         },
         {
@@ -102,6 +131,7 @@ export default function Sidebar({
         '& .MuiDrawer-paper': {
           width: DRAWER_WIDTH,
           boxSizing: 'border-box',
+          bgcolor: 'unset',
         },
         transition: 'none',
       }}
