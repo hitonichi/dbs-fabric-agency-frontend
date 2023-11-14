@@ -1,6 +1,13 @@
 import { Divider, Drawer, IconButton, Typography } from '@mui/material';
+
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import FactoryIcon from '@mui/icons-material/Factory';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import GroupsIcon from '@mui/icons-material/Groups';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 
 import SidebarItem from './SidebarItem';
 import { DRAWER_WIDTH, roleAsString } from './constants';
@@ -18,16 +25,12 @@ export const ROUTES = {
   operationStaff: [
     {
       path: '/dashboard',
-      Icon: () => <LogoutIcon />,
+      Icon: () => <DashboardIcon />,
       label: 'Dashboard',
     },
+
     {
-      path: '/profile',
-      Icon: () => <LogoutIcon />,
-      label: 'Profile',
-    },
-    {
-      Icon: () => <LogoutIcon />,
+      Icon: () => <ReceiptIcon />,
       label: 'Transactions',
       items: [
         {
@@ -44,13 +47,42 @@ export const ROUTES = {
   partnerStaff: [
     {
       path: '/dashboard',
-      Icon: () => <LogoutIcon />,
+      Icon: () => <DashboardIcon />,
       label: 'Dashboard',
     },
     {
       path: '/suppliers',
-      Icon: () => <LogoutIcon />,
+      Icon: () => <FactoryIcon />,
       label: 'Suppliers',
+    },
+  ],
+  officeStaff: [
+    {
+      path: '/customers',
+      Icon: () => <GroupsIcon />,
+      label: 'Customers',
+    },
+  ],
+  customer: [
+    {
+      path: '/profile',
+      Icon: () => <AccountBoxIcon />,
+      label: 'Profile',
+    },
+    {
+      path: '/orders',
+      Icon: () => <ListAltIcon />,
+      label: 'Orders',
+      items: [
+        {
+          path: '/orders/view',
+          label: 'View',
+        },
+        {
+          path: '/orders/create',
+          label: 'Create',
+        },
+      ],
     },
   ],
 };

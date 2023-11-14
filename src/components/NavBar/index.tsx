@@ -23,7 +23,6 @@ export default function NavBar({ children }: { children: ReactNode }) {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
   const handleToggleDrawer = () => {
-    console.log('toggling drawer');
     setOpenDrawer(!openDrawer);
   };
 
