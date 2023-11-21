@@ -114,6 +114,28 @@ export const ROUTES = {
       ],
     },
   ],
+  manager: [
+    {
+      path: '/suppliers',
+      Icon: () => <FactoryIcon />,
+      label: 'Suppliers',
+      items: [
+        {
+          path: '/suppliers',
+          label: 'Search',
+        },
+        {
+          path: '/suppliers/add',
+          label: 'Add',
+        },
+      ],
+    },
+    {
+      path: '/orders',
+      Icon: () => <ListAltIcon />,
+      label: 'Orders',
+    },
+  ],
 };
 
 export default function Sidebar({
