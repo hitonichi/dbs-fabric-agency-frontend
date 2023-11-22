@@ -1,3 +1,9 @@
+import SupplierRegisterForm from '../../../../components/SupplierRegisterForm';
+
 export default function Page() {
-  return <div>This is suppliers adding page.</div>;
+  return (
+    <div className="flex flex-col gap-4">
+      <SupplierRegisterForm />
+    </div>
+  );
 }
