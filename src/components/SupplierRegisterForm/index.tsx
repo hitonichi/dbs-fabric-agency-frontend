@@ -4,9 +4,21 @@ import { Alert, Box, Button, Snackbar, Typography } from '@mui/material';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import FormInput from '../FormInput';
 import { useEffect, useState } from 'react';
+import { object, z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const registerSchema = object({
+  name: z.string().nonempty('Name is required'),
+  phone: z.array(z.string()).nonempty(),
+  address: z.string().nonempty('Address is required'),
+  taxCode: z.string().nonempty('Tax code is required'),
+  bank: z.string().nonempty('Bank account is required'),
+});
 
 const SupplierRegisterForm = () => {
-  const methods = useForm();
+  const methods = useForm({
+    resolver: zodResolver(registerSchema),
+  });
 
   const {
     reset,
