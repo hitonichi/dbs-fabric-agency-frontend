@@ -138,7 +138,5 @@ const rows = [
 ];
 
 export default function ImportList() {
-  return (
-    <TableComponent columns={columns} rows={rows} navigateBasePath={'fabric'} />
-  );
+  return <TableComponent columns={columns} rows={rows} />;
 }
