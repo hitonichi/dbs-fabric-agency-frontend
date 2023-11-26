@@ -47,7 +47,7 @@ const SupplierRegisterForm = () => {
           severity="success"
           sx={{ width: '100%' }}
         >
-          This is a success message!
+          Supplier information added!
         </Alert>
       </Snackbar>
       <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
