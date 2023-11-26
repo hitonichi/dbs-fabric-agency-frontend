@@ -9,6 +9,7 @@ import FactoryIcon from '@mui/icons-material/Factory';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import YardIcon from '@mui/icons-material/Yard';
+import DirectionsBoatIcon from '@mui/icons-material/DirectionsBoat';
 
 import SidebarItem from './SidebarItem';
 import { DRAWER_WIDTH, roleAsString } from './constants';
@@ -116,7 +117,6 @@ export const ROUTES = {
   ],
   manager: [
     {
-      path: '/suppliers',
       Icon: () => <FactoryIcon />,
       label: 'Suppliers',
       items: [
@@ -129,6 +129,16 @@ export const ROUTES = {
           label: 'Add',
         },
       ],
+    },
+    {
+      path: '/imports',
+      Icon: () => <DirectionsBoatIcon />,
+      label: 'Imports',
+    },
+    {
+      path: '/fabric',
+      Icon: () => <YardIcon />,
+      label: 'Fabric Browse',
     },
     {
       path: '/orders',
