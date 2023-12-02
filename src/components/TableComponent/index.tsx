@@ -17,6 +17,12 @@ export default function TableComponent({ columns, rows, ...restProps }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  if (restProps.filterFunc) {
+    console.log(rows);
+    rows = rows.filter((r) => restProps.filterFunc(r));
+    console.log(rows);
+  }
+
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };

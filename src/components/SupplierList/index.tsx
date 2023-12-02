@@ -115,7 +115,8 @@ const rows = [
   ),
 ];
 
-export default function SupplierList() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function SupplierList({ supplier }) {
   return (
     <TableComponent
       columns={columns}

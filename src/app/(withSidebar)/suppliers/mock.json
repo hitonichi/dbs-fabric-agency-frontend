@@ -1,0 +1,42 @@
+[
+  {
+    "id": 10000,
+    "name": "Rocha Vinson 668",
+    "address": "67 Stoddard Place, Blue",
+    "taxCode": 349717,
+    "bankAccount": 159596,
+    "staffId": 84904
+  },
+  {
+    "id": 10001,
+    "name": "Patterson Hayden 764",
+    "address": "85 Harrison Avenue, Mulberry",
+    "taxCode": 996296,
+    "bankAccount": 665190,
+    "staffId": 44632
+  },
+  {
+    "id": 10002,
+    "name": "Velasquez Adams 82",
+    "address": "168 Jodie Court, Marbury",
+    "taxCode": 582152,
+    "bankAccount": 619508,
+    "staffId": 81506
+  },
+  {
+    "id": 10003,
+    "name": "Stephanie Lester 533",
+    "address": "106 Hampton Avenue, Dundee",
+    "taxCode": 835281,
+    "bankAccount": 988394,
+    "staffId": 43183
+  },
+  {
+    "id": 10004,
+    "name": "Shaffer Ortega 444",
+    "address": "94 Erskine Loop, Katonah",
+    "taxCode": 379946,
+    "bankAccount": 912840,
+    "staffId": 11374
+  }
+]
