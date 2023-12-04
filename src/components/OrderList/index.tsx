@@ -1,6 +1,7 @@
 import * as React from 'react';
 import TableComponent from '../TableComponent';
 import { TableCellProps } from '@mui/material';
+import { toCurrencyString } from '../../utils/strings';
 
 interface Column {
   id: 'date' | 'fabric' | 'quantity' | 'supplier' | 'price';
@@ -17,13 +18,13 @@ const columns: readonly Column[] = [
     label: 'Fabric Category',
     align: 'justify',
     minWidth: 200,
-    format: (value: number) => value.toFixed(2),
+    // format: (value: number) => value.toFixed(2),
   },
   {
     id: 'supplier',
     label: 'Imported by',
     minWidth: 200,
-    format: (value: number) => value.toFixed(2),
+    // format: (value: number) => value.toFixed(2),
   },
   {
     id: 'quantity',
@@ -37,7 +38,7 @@ const columns: readonly Column[] = [
     label: 'Price',
     minWidth: 200,
     align: 'right',
-    format: (value: number) => '$ ' + value.toLocaleString('en-US'),
+    format: toCurrencyString,
   },
 ];
 
