@@ -32,7 +32,7 @@ const columns: readonly Column[] = [
     label: 'Maintained by',
     minWidth: 120,
     align: 'right',
-    format: (value: number) => value.toFixed(2),
+    // format: (value: number) => value.toFixed(2),
   },
 ];
 
