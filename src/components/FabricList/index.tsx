@@ -17,14 +17,14 @@ const columns: readonly Column[] = [
     id: 'supplier',
     label: 'Imported by',
     minWidth: 200,
-    format: (value: number) => value.toFixed(2),
+    // format: (value: number) => value.toFixed(2),
   },
   {
     id: 'price',
     label: 'Price',
     minWidth: 200,
     align: 'right',
-    format: (value: number) => '$ ' + value.toLocaleString('en-US'),
+    format: toCurrencyString,
   },
   {
     id: 'quantity',
@@ -68,6 +68,7 @@ const rows = [
 ];
 
 import MOCK_FABRIC from '../../app/(withSidebar)/fabric/mock.json';
+import { toCurrencyString } from '../../utils/strings';
 
 export default function FabricList({ supplier }) {
   return (
