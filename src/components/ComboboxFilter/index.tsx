@@ -51,7 +51,7 @@ export default function ComboboxFilter({
         size="small"
         renderInput={(params) => <TextField {...params} label={label} />}
         onChange={(e, newVal) => setInput(newVal)}
-        getOptionLabel={(o) => o.id + '-' + o.label}
+        getOptionLabel={(o) => o.id + ' - ' + o.label}
         isOptionEqualToValue={(option, value) => option.id === value.id}
         // value={input}
         // onKeyDown={(e) => {

@@ -54,7 +54,7 @@ export default function TableComponent({ columns, rows, ...restProps }) {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
@@ -73,7 +73,9 @@ export default function TableComponent({ columns, rows, ...restProps }) {
                             restProps.navigateBasePath ? 'cursor-pointer' : ''
                           }
                         >
-                          {column.format && typeof value === 'number'
+                          {column.format &&
+                          (typeof value === 'number' ||
+                            typeof value === 'string')
                             ? column.format(value)
                             : value}
                         </TableCell>
