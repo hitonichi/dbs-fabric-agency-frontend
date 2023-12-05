@@ -1,17 +1,67 @@
 'use client';
 
 import dayjs, { Dayjs } from 'dayjs';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
-import ImportList from '../../../components/ImportList';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import ComboboxFilter from '../../../components/ComboboxFilter';
+import { toCurrencyString } from '../../../utils/strings';
+import { TableColumn } from '../../../components/TableComponent/types';
+import TableComponent from '../../../components/TableComponent';
 
 const DEFAULT_DATE_RANGE = {
   from: dayjs('2000-01-01'),
   to: dayjs('2099-01-01'),
 };
+
+const columns: TableColumn[] = [
+  {
+    id: 'date',
+    label: 'Import Date',
+    minWidth: 200,
+    align: 'left',
+    format: (val: string) => dayjs(val).format('YYYY-MM-DD'),
+  },
+  {
+    id: 'name',
+    label: 'Category',
+    minWidth: 120,
+    align: 'left',
+  },
+  {
+    id: 'color',
+    label: 'Color',
+    minWidth: 120,
+    align: 'left',
+  },
+  {
+    id: 'supplierName',
+    label: 'Imported by',
+    minWidth: 200,
+    align: 'left',
+  },
+  {
+    id: 'phone',
+    label: 'Supplier phone(s)',
+    minWidth: 300,
+    align: 'left',
+    // format: (val: string) => val + ', ' + val + ', ' + val + ', ' + val,
+  },
+  {
+    id: 'quantity',
+    label: 'Imported Quantity',
+    minWidth: 200,
+    align: 'center',
+  },
+  {
+    id: 'price',
+    label: 'Imported Price',
+    minWidth: 200,
+    align: 'center',
+    format: toCurrencyString,
+  },
+];
 
 export default function Page() {
   const [supplier, setSupplier] = useState(null);
@@ -19,9 +69,13 @@ export default function Page() {
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
 
+  const [imports, setImports] = useState([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleResetInput = () => {
     console.log('resetting', supplier, startDate, endDate);
-    setSupplier(null);
+    setSupplier('');
     setStartDate(null);
     setEndDate(null);
   };
@@ -42,13 +96,23 @@ export default function Page() {
       // Make API call here
       const req = new Request('/api/imports', {
         method: 'POST',
-        body: JSON.stringify({ supplier: supplier.id, from, to }),
+        body: JSON.stringify({ supplier: supplier?.id, from, to }),
       });
 
+      setLoading(true);
       fetch(req)
         .then((res) =>
           res.json().then((data) => {
             console.log('[Client] got data', data);
+
+            if (data.data.length == 0) {
+              // indicating no import
+              alert(
+                'This supplier has not import any fabric during this period.'
+              );
+            }
+            setImports(data.data);
+            setLoading(false);
           })
         )
         .catch((e) => {
@@ -84,21 +148,6 @@ export default function Page() {
 
       {/* SEARCH SECTION */}
       <div className="flex w-full gap-2 items-center ">
-        {/* <TextField
-          id="outlined-basic"
-          label="Supplier"
-          variant="outlined"
-          // sx={{ width: '100%' }}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleSubmitInput();
-            }
-          }}
-        /> */}
-
         <ComboboxFilter
           label="Filter by Supplier"
           options={suppliersOptions}
@@ -122,7 +171,7 @@ export default function Page() {
           />
         </LocalizationProvider>
 
-        <Button
+        {/* <Button
           variant="contained"
           disabled={!supplier && !startDate && !endDate}
           onClick={handleResetInput}
@@ -130,7 +179,7 @@ export default function Page() {
           color="secondary"
         >
           Clear
-        </Button>
+        </Button> */}
         <Button
           variant="contained"
           disabled={!supplier && !startDate && !endDate}
@@ -141,7 +190,17 @@ export default function Page() {
         </Button>
       </div>
 
-      <ImportList />
+      {loading && (
+        <div className="w-full">
+          <CircularProgress />
+        </div>
+      )}
+      {!loading && imports.length > 0 && (
+        <TableComponent columns={columns} rows={imports} />
+      )}
+      {!loading && imports.length == 0 && (
+        <Typography>Fill in the above filter to find imports</Typography>
+      )}
     </div>
   );
 }

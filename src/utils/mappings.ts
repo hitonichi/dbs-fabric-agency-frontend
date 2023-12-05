@@ -83,6 +83,8 @@ export const mapImport = (imports) => {
     (i) =>
       ({
         category: i.Category,
+        name: i.F_Name,
+        color: i.F_Color,
         date: i.Date,
         quantity: i.Quantity,
         price: i.Price,
