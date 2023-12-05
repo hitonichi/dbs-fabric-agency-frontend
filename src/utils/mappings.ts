@@ -1,4 +1,5 @@
 import { IFabricCategoryData } from '../app/api/fabric/types';
+import { IImportData } from '../app/api/imports/types';
 import { IEmployeeData } from '../app/api/staffs/partner/types';
 import { ISupplierData } from '../app/api/suppliers/types';
 import { IFabricCategory } from '../components/orderInfomation/FabricInfoCard/types';
@@ -73,5 +74,21 @@ export const mapEmployee = (employees) => {
         address: e.E_Address,
         type: e.E_Type,
       }) as IEmployeeData
+  );
+};
+
+export const mapImport = (imports) => {
+  if (!imports || imports.length == 0) return [];
+  return imports.map(
+    (i) =>
+      ({
+        category: i.Category,
+        date: i.Date,
+        quantity: i.Quantity,
+        price: i.Price,
+        supplierID: i.Supplier_ID,
+        supplierName: i.Supplier_Name,
+        phone: i.Supplier_Phones,
+      }) as IImportData
   );
 };
