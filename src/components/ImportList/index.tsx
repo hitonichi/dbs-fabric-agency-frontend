@@ -1,6 +1,7 @@
 import * as React from 'react';
 import TableComponent from '../TableComponent';
 import { TableCellProps } from '@mui/material';
+import { toCurrencyString } from '../../utils/strings';
 
 interface Column {
   id: 'date' | 'fabric' | 'quantity' | 'supplier' | 'price';
@@ -17,13 +18,13 @@ const columns: readonly Column[] = [
     label: 'Fabric Category',
     align: 'justify',
     minWidth: 200,
-    format: (value: number) => value.toFixed(2),
+    // format: (value: number) => value.toFixed(2),
   },
   {
     id: 'supplier',
     label: 'Imported by',
     minWidth: 200,
-    format: (value: number) => value.toFixed(2),
+    // format: (value: number) => value.toFixed(2),
   },
   {
     id: 'quantity',
@@ -34,10 +35,10 @@ const columns: readonly Column[] = [
   },
   {
     id: 'price',
-    label: 'Price',
+    label: 'Import Price',
     minWidth: 200,
     align: 'right',
-    format: (value: number) => '$ ' + value.toLocaleString('en-US'),
+    format: toCurrencyString,
   },
 ];
 
@@ -69,7 +70,7 @@ const rows = [
     'Silk',
     '#BDB1A8',
     1234,
-    1000,
+    30,
     'John Murtough'
   ),
   createData(
@@ -78,7 +79,7 @@ const rows = [
     'Jacquard',
     '#746E50',
     1234,
-    1000,
+    30,
     'John Murtough'
   ),
   createData(
@@ -87,7 +88,7 @@ const rows = [
     'Damask',
     '#8B5959',
     1234,
-    1000,
+    30,
     'John Murtough'
   ),
   createData(
@@ -96,7 +97,7 @@ const rows = [
     'Khaki',
     '#F0E68C',
     1234,
-    1000,
+    30,
     'John Murtough'
   ),
   createData(
@@ -105,7 +106,7 @@ const rows = [
     'Silk',
     '#B7A99B',
     1234,
-    1000,
+    30,
     'John Murtough'
   ),
   createData(
@@ -114,7 +115,7 @@ const rows = [
     'Faux silk',
     '#FFBF00',
     1234,
-    1000,
+    30,
     'John Murtough'
   ),
   createData(
@@ -123,7 +124,7 @@ const rows = [
     'Crewel',
     '#CBB99B',
     1234,
-    1000,
+    30,
     'John Murtough'
   ),
   createData(
@@ -132,7 +133,7 @@ const rows = [
     'Damask',
     '#FCF2DF',
     1234,
-    1000,
+    30,
     'John Murtough'
   ),
 ];

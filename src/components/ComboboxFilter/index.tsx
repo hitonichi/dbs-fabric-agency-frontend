@@ -13,11 +13,13 @@ export default function ComboboxFilter({
   options,
   input,
   setInput,
+  size,
 }: {
   label: string;
   options: { label: string; id: string }[];
   input: unknown;
   setInput: (val) => void;
+  size?: 'small' | 'medium';
 }) {
   // const handleSubmitInput = () => {
   //   console.log('filtering base on', input);
@@ -29,30 +31,16 @@ export default function ComboboxFilter({
 
   return (
     <div className="flex w-full gap-2 items-center">
-      {/* <TextField
-        id="outlined-basic"
-        label="Filter"
-        variant="outlined"
-        sx={{ width: '100%' }}
-        onChange={(e) => {
-          setInput(e.target.value);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleSubmitInput();
-          }
-        }}
-        size="small"
-      /> */}
       <Autocomplete
         id="combo-box-demo"
         options={options || DEFAULT_OPTIONS}
         sx={{ width: '100%' }}
-        size="small"
+        size={size || 'small'}
         renderInput={(params) => <TextField {...params} label={label} />}
         onChange={(e, newVal) => setInput(newVal)}
         getOptionLabel={(o) => o.id + ' - ' + o.label}
         isOptionEqualToValue={(option, value) => option.id === value.id}
+
         // value={input}
         // onKeyDown={(e) => {
         //   if (e.key === 'Enter') {
@@ -60,9 +48,6 @@ export default function ComboboxFilter({
         //   }
         // }}
       />
-      {/* <Button variant="contained" disabled={!input} onClick={handleSubmitInput}>
-        Find
-      </Button> */}
     </div>
   );
 }
