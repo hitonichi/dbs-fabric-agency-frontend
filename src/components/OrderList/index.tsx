@@ -35,7 +35,7 @@ const columns: readonly Column[] = [
   },
   {
     id: 'price',
-    label: 'Import Price',
+    label: 'Price',
     minWidth: 200,
     align: 'right',
     format: toCurrencyString,
@@ -70,7 +70,7 @@ const rows = [
     'Silk',
     '#BDB1A8',
     1234,
-    30,
+    1000,
     'John Murtough'
   ),
   createData(
@@ -79,7 +79,7 @@ const rows = [
     'Jacquard',
     '#746E50',
     1234,
-    30,
+    1000,
     'John Murtough'
   ),
   createData(
@@ -88,7 +88,7 @@ const rows = [
     'Damask',
     '#8B5959',
     1234,
-    30,
+    1000,
     'John Murtough'
   ),
   createData(
@@ -97,7 +97,7 @@ const rows = [
     'Khaki',
     '#F0E68C',
     1234,
-    30,
+    1000,
     'John Murtough'
   ),
   createData(
@@ -106,7 +106,7 @@ const rows = [
     'Silk',
     '#B7A99B',
     1234,
-    30,
+    1000,
     'John Murtough'
   ),
   createData(
@@ -115,7 +115,7 @@ const rows = [
     'Faux silk',
     '#FFBF00',
     1234,
-    30,
+    1000,
     'John Murtough'
   ),
   createData(
@@ -124,7 +124,7 @@ const rows = [
     'Crewel',
     '#CBB99B',
     1234,
-    30,
+    1000,
     'John Murtough'
   ),
   createData(
@@ -133,11 +133,13 @@ const rows = [
     'Damask',
     '#FCF2DF',
     1234,
-    30,
+    1000,
     'John Murtough'
   ),
 ];
 
-export default function ImportList() {
-  return <TableComponent columns={columns} rows={rows} />;
+export default function OrderList() {
+  return (
+    <TableComponent columns={columns} rows={rows} navigateBasePath={'orders'} />
+  );
 }

@@ -1,15 +1,111 @@
 'use client';
 
-import { Button, TextField, Typography } from '@mui/material';
-import { useState } from 'react';
-import FabricList from '../../../components/FabricList';
+import { Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import ComboboxFilter from '../../../components/ComboboxFilter';
+
+import { TableColumn } from '../../../components/TableComponent/types';
+import { toCurrencyString } from '../../../utils/strings';
+import TableComponent from '../../../components/TableComponent';
+
+// [
+//   '{{repeat(100)}}',
+//   {
+//     id: '{{index(10000)}}',
+//     category:
+//       '{{random("Silk", "Jacquard", "Damask", "Khaki", "Faux silk", "Crewel")}}',
+//     colour: '#{{integer(100000, 999999)}}',
+//     price: '{{integer(10000, 100000)}}',
+//     quantity: '{{integer(10, 90)*100}}',
+//     supplier: '{{company()}} {{firstName()}}',
+//     supplierId: '{{random("10001", "10002", "10003", "10004", "10000")}}',
+//   },
+// ];
+
+const columns: TableColumn[] = [
+  {
+    id: 'category',
+    label: 'Category',
+    minWidth: 120,
+    align: 'left',
+  },
+  {
+    id: 'color',
+    label: 'Color',
+    minWidth: 120,
+    align: 'left',
+  },
+  {
+    id: 'supplierName',
+    label: 'Imported by',
+    minWidth: 200,
+    align: 'left',
+  },
+  {
+    id: 'lastUpdated',
+    label: 'Last Price Updated',
+    minWidth: 200,
+    align: 'left',
+  },
+  {
+    id: 'quantity',
+    label: 'Available Quantity',
+    minWidth: 200,
+    align: 'center',
+  },
+  {
+    id: 'price',
+    label: 'Bolt Price',
+    minWidth: 200,
+    align: 'center',
+    format: toCurrencyString,
+  },
+];
 
 export default function Page() {
-  const [input, setInput] = useState<string>('');
+  const [input, setInput] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [filteredCategories, setFilteredCategories] = useState(categories);
+  const [suppliers, setSuppliers] = useState([]);
 
-  const handleSubmitInput = () => {
-    console.log('submitted', input);
-  };
+  // useEffect(() => {
+  //   setSelectedSupplier(input);
+  // }, [input]);
+
+  console.log('categories', categories, filteredCategories);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // Fetching & getting categories
+      const fabricRes = await fetch('/api/fabric');
+      const fabricData = await fabricRes.json();
+
+      setCategories(fabricData.data);
+
+      // Fetching & setting suppliers
+      const supRes = await fetch('/api/suppliers');
+      const supData = await supRes.json();
+      console.log('[Fabric] got supRes', supRes, supData);
+
+      setSuppliers(
+        supData.data.map((s) => ({
+          ...s,
+          label: s.name,
+          value: s.id,
+        }))
+      );
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (input && input.id) {
+      console.log('input changed', input);
+      setFilteredCategories(categories.filter((c) => c.supplierID == input.id));
+    } else {
+      setFilteredCategories(categories);
+    }
+  }, [input, categories]);
 
   return (
     <div className="flex flex-col gap-4 h-full">
@@ -17,32 +113,14 @@ export default function Page() {
         Fabric Categories
       </Typography>
 
-      <div className="flex w-full gap-2 items-center">
-        <TextField
-          id="outlined-basic"
-          label="Filter"
-          variant="outlined"
-          sx={{ width: '100%' }}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleSubmitInput();
-            }
-          }}
-          size="small"
-        />
-        <Button
-          variant="contained"
-          disabled={input === ''}
-          onClick={handleSubmitInput}
-        >
-          Find
-        </Button>
-      </div>
+      <ComboboxFilter
+        label="Filter by Supplier ID"
+        options={suppliers}
+        input={input}
+        setInput={setInput}
+      />
 
-      <FabricList />
+      <TableComponent columns={columns} rows={filteredCategories} />
     </div>
   );
 }

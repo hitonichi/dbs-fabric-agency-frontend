@@ -23,6 +23,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/HCMUT_official_logo.ico" sizes="any" />
+      </head>
       <body className={inter.className}>
         <ThemeRegistry options={{ key: 'mui-theme' }}>
           <AuthProvider>{children}</AuthProvider>

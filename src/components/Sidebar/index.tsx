@@ -117,6 +117,11 @@ export const ROUTES = {
   ],
   manager: [
     {
+      path: '/imports',
+      Icon: () => <DirectionsBoatIcon />,
+      label: 'Imports',
+    },
+    {
       Icon: () => <FactoryIcon />,
       label: 'Suppliers',
       items: [
@@ -129,11 +134,6 @@ export const ROUTES = {
           label: 'Add',
         },
       ],
-    },
-    {
-      path: '/imports',
-      Icon: () => <DirectionsBoatIcon />,
-      label: 'Imports',
     },
     {
       path: '/fabric',

@@ -6,6 +6,9 @@ const lightTheme: Theme = createTheme({
     primary: {
       main: '#fcba03',
     },
+    secondary: {
+      main: '#6C5F5B',
+    },
   },
 });
 

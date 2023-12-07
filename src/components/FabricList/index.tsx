@@ -17,14 +17,14 @@ const columns: readonly Column[] = [
     id: 'supplier',
     label: 'Imported by',
     minWidth: 200,
-    format: (value: number) => value.toFixed(2),
+    // format: (value: number) => value.toFixed(2),
   },
   {
     id: 'price',
     label: 'Price',
     minWidth: 200,
     align: 'right',
-    format: (value: number) => '$ ' + value.toLocaleString('en-US'),
+    format: toCurrencyString,
   },
   {
     id: 'quantity',
@@ -55,19 +55,34 @@ function createData(
   return { id, category, colour, price, quantity, supplier };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const rows = [
-  createData('11111', 'Silk', '#BDB1A8', 1234, 1000, 'John Murtough'),
-  createData('11112', 'Jacquard', '#746E50', 1234, 1000, 'John Murtough'),
-  createData('11113', 'Damask', '#8B5959', 1234, 1000, 'John Murtough'),
-  createData('11114', 'Khaki', '#F0E68C', 1234, 1000, 'John Murtough'),
-  createData('11115', 'Silk', '#B7A99B', 1234, 1000, 'John Murtough'),
-  createData('11116', 'Faux silk', '#FFBF00', 1234, 1000, 'John Murtough'),
-  createData('11117', 'Crewel', '#CBB99B', 1234, 1000, 'John Murtough'),
-  createData('11118', 'Damask', '#FCF2DF', 1234, 1000, 'John Murtough'),
+  createData('10001', 'Silk', '#BDB1A8', 1234, 1000, 'John Murtough'),
+  createData('10002', 'Jacquard', '#746E50', 1234, 1000, 'John Murtough'),
+  createData('10003', 'Damask', '#8B5959', 1234, 1000, 'John Murtough'),
+  createData('10004', 'Khaki', '#F0E68C', 1234, 1000, 'John Murtough'),
+  createData('10005', 'Silk', '#B7A99B', 1234, 1000, 'John Murtough'),
+  createData('10006', 'Faux silk', '#FFBF00', 1234, 1000, 'John Murtough'),
+  createData('10007', 'Crewel', '#CBB99B', 1234, 1000, 'John Murtough'),
+  createData('10008', 'Damask', '#FCF2DF', 1234, 1000, 'John Murtough'),
 ];
 
-export default function FabricList() {
+import MOCK_FABRIC from '../../app/(withSidebar)/fabric/mock.json';
+import { toCurrencyString } from '../../utils/strings';
+
+export default function FabricList({ supplier }) {
   return (
-    <TableComponent columns={columns} rows={rows} navigateBasePath={'fabric'} />
+    <TableComponent
+      filterFunc={
+        supplier
+          ? (row) => {
+              return row.supplierId == supplier.id;
+            }
+          : null
+      }
+      columns={columns}
+      rows={MOCK_FABRIC}
+      navigateBasePath={'fabric'}
+    />
   );
 }

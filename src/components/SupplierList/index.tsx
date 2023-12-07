@@ -32,7 +32,7 @@ const columns: readonly Column[] = [
     label: 'Maintained by',
     minWidth: 120,
     align: 'right',
-    format: (value: number) => value.toFixed(2),
+    // format: (value: number) => value.toFixed(2),
   },
 ];
 
@@ -115,7 +115,8 @@ const rows = [
   ),
 ];
 
-export default function SupplierList() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function SupplierList({ supplier }) {
   return (
     <TableComponent
       columns={columns}
